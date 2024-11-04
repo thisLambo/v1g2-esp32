@@ -19,6 +19,8 @@
 #define PACKET_ID_REQCURRENTVOLUME 0x37
 #define PACKET_ID_REQSTARTALERTDATA 0x41
 #define PACKET_ID_REQBATTERYVOLTAGE 0x62
+#define PACKET_ID_REQMUTEON 0x34
+#define PACKET_ID_REQMUTEOFF 0x35
 
 using alertsVector = std::vector<std::string>;
 
@@ -44,6 +46,8 @@ public:
     static uint8_t* reqSerialNumber();
     static uint8_t* reqTurnOffMainDisplay();
     static uint8_t* reqBatteryVoltage();
+    static uint8_t* reqMuteOn();
+    static uint8_t* reqMuteOff();
 };
 
 #endif // PACKETDECODER_H

@@ -161,7 +161,7 @@ void startupInfo() {
         return;
       }
     }
-  clientWriteCharacteristic = dataRemoteService->getCharacteristic(clientWriteUUID);
+    clientWriteCharacteristic = dataRemoteService->getCharacteristic(clientWriteUUID);
     if (clientWriteCharacteristic != nullptr) {
       clientWriteCharacteristic->writeValue((uint8_t*)Packet::reqVersion(), 1, false);
       delay(250);
@@ -306,6 +306,7 @@ void setup()
   pinMode(15, OUTPUT);
   digitalWrite(15, HIGH);
   pinMode(PIN_BUTTON_2, INPUT);
+  pinMode(PIN_BUTTON_1, INPUT);
   Serial.begin(115200);
 
   Serial.println("Reading initial settings...");
@@ -399,12 +400,18 @@ void setup()
 void loop() {  
   // web server handler
   server.handleClient();
-
-  int buttonState = digitalRead(PIN_BUTTON_2);
-  if (buttonState == LOW) {
-    //do something if button is pressed
+  if (connected) {
+    int buttonState2 = digitalRead(PIN_BUTTON_2);
+    if (buttonState2 == LOW) {
+      clientWriteCharacteristic->writeValue((uint8_t*)Packet::reqMuteOff(), 1, false);
+      delay(500);
+    }
+    int buttonState1 = digitalRead(PIN_BUTTON_1);
+    if (buttonState1 == LOW) {
+      clientWriteCharacteristic->writeValue((uint8_t*)Packet::reqMuteOn(), 1, false);
+      delay(500);
+    }
   }
-
   if (settings.displayTest == true) {
     Serial.println(settings.displayTest);
 

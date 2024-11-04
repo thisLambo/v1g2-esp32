@@ -466,3 +466,17 @@ uint8_t* Packet::reqBatteryVoltage() {
     Serial.println("Sending reqBatteryVoltage packet");
     return constructPacket(DEST_V1, REMOTE_SENDER, PACKET_ID_REQBATTERYVOLTAGE, const_cast<uint8_t*>(payloadData), payloadLength, packet);
 }
+
+uint8_t* Packet::reqMuteOn() {
+    uint8_t payloadData[] = {0x01};
+    uint8_t payloadLength = sizeof(payloadData) / sizeof(payloadData[0]);
+    Serial.println("Sending reqMuteOn");
+    return constructPacket(DEST_V1, REMOTE_SENDER, PACKET_ID_REQMUTEON, const_cast<uint8_t*>(payloadData), payloadLength, packet);
+}
+
+uint8_t* Packet::reqMuteOff() {
+    uint8_t payloadData[] = {0x01};
+    uint8_t payloadLength = sizeof(payloadData) / sizeof(payloadData[0]);
+    Serial.println("Sending reqMuteOff");
+    return constructPacket(DEST_V1, REMOTE_SENDER, PACKET_ID_REQMUTEOFF, const_cast<uint8_t*>(payloadData), payloadLength, packet);
+}
